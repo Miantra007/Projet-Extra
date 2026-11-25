@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+    version="2.4">
+    <display-name>Application WEB affichant HelloWorld</display-name>
+
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/applicationContext.xml</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>controller-package</param-name>
+        <param-value>controller</param-value>
+    </context-param>
+
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+
+    <context-param>
+        <param-name>prefix</param-name>
+        <param-value>WEB-INF/views</param-value>
+    </context-param>
+
+
+    <context-param>
+        <param-name>suffix</param-name>
+        <param-value>.jsp</param-value>
+    </context-param>
+
+    <servlet>
+        <servlet-name>MyFramework</servlet-name>
+        <servlet-class>servlet.FrontControllerServlet</servlet-class>
+
+        <init-param>
+            <param-name>auth-session</param-name>
+            <param-value>isAuth</param-value>
+        </init-param>
+
+        <init-param>
+            <param-name>role-session</param-name>
+            <param-value>role</param-value>
+        </init-param>
+
+        <init-param>
+            <param-name>auth-login</param-name>
+            <param-value>/login</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>MyFramework</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <listener>
+        <listener-class>listener.Listener</listener-class>
+    </listener>
+
+</web-app>
