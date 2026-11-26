@@ -56,6 +56,11 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>/assets/*</url-pattern>
+    </servlet-mapping>
+
     <listener>
         <listener-class>listener.Listener</listener-class>
     </listener>
