@@ -26,10 +26,16 @@ public class PatientController {
     }
 
     @Url(value = "/ajoutPatient", method = "GET")
-    public ModelAndView formAjoutPatient(ApplicationContext springContext) {
+    public ModelAndView formAjoutPatient(ApplicationContext springContext, String param, Integer id) {
         ModelAndView mv = new ModelAndView("form-patient");
         EtatCivilRepository etatCivilRepository = springContext.getBean(EtatCivilRepository.class);
         SexeRepository sexeRepository = springContext.getBean(SexeRepository.class);
+        PatientService patientService = springContext.getBean(PatientService.class);
+        if (param != null && id != null) {
+            Patient p = patientService.trouver(id);
+            mv.addObject("patient", p);
+            mv.addObject("param", param);
+        }
         mv.addObject("etatCivils", etatCivilRepository.findAll());
         mv.addObject("sexe", sexeRepository.findAll());
         return mv;
@@ -51,6 +57,26 @@ public class PatientController {
         PatientService patientService = springContext.getBean(PatientService.class);
         Patient p = patientService.trouver(id);
         mv.addObject("patient", p);
+        return mv;
+    }
+
+    @Url(value = "/supprimerPatient", method = "GET")
+    public ModelAndView supprimerPatient(ApplicationContext springContext, int id) {
+        ModelAndView mv = new ModelAndView("liste-patient");
+        PatientService patientService = springContext.getBean(PatientService.class);
+        patientService.supprimer(id);
+        List<Patient> patients = patientService.lister();
+        mv.addObject("patients", patients);
+        return mv;
+    }
+
+    @Url(value = "/modifierPatient", method = "POST")
+    public ModelAndView modifierPatient(ApplicationContext springContext, Patient p) {
+        ModelAndView mv = new ModelAndView("liste-patient");
+        PatientService patientService = springContext.getBean(PatientService.class);
+        Patient pt = patientService.enregistrer(p);
+        List<Patient> patients = patientService.lister();
+        mv.addObject("patients", patients);
         return mv;
     }
 

@@ -35,6 +35,8 @@
                                 <th>Prénom</th>
                                 <th>Sexe</th>
                                 <th>État civil</th>
+                                <th>Action</th>
+
                             </tr>
                         </thead>
 
@@ -54,6 +56,12 @@
                                     <td><%= p.getPrenom() %></td>
                                     <td><%= p.getSexe().getLibelle() %></td>
                                     <td><%= p.getEtatCivil().getLibelle() %></td>
+                                    <td><a href="${pageContext.request.contextPath}/supprimerPatient?id=<%= p.getId() %>">
+                                        Delete
+                                    </a>
+                                    <a href="${pageContext.request.contextPath}/ajoutPatient?id=<%= p.getId() %>&param=modif">
+                                        Modifier
+                                    </a></td>
                                 </tr>
                                 <% } %>
                             </tbody>
